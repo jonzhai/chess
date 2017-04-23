@@ -27,6 +27,7 @@ var drawChessBoard=function () {
         ctx.stroke();
     }
 }
+//定义每步
 var oneStep=function (i,j,me) {
     ctx.beginPath();
     ctx.arc(15+i*30,15+j*30,13,0,Math.PI*2);
