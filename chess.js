@@ -12,7 +12,7 @@ chess = {
     _drawChessBoard: function () {
         var ctx = this.ctx;
         var logo = new Image();
-        logo.src = "0.png";
+        logo.src = "background.png";
         logo.onload = function () {
             ctx.drawImage(logo, 0, 0, 450, 450);//先绘制棋盘背景
             for (var i = 0; i < 15; i++) {//绘制棋盘方格，15*15
