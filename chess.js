@@ -1,9 +1,9 @@
-var me=true;
+var me=true;//控制黑白
 var chessBoard=[];
 for(var i=0;i<15;i++){
     chessBoard[i]=[];
     for(var j=0;j<15;j++){
-        chessBoard[i][j]=0;
+        chessBoard[i][j]=0;//默认棋子位置为0，白子为1，黑子为2
     }
 }
 var c=document.getElementById("chess");
@@ -28,18 +28,23 @@ var drawChessBoard=function () {
     }
 }
 //定义每步
-var oneStep=function (i,j,me) {
+var oneStep = function (i, j, me) {
     ctx.beginPath();
-    ctx.arc(15+i*30,15+j*30,13,0,Math.PI*2);
+    ctx.arc(15+i*30,15+j*30,10,0,Math.PI*2);
     ctx.closePath();
     var gradient=ctx.createRadialGradient(15+i*30+2,15+j*30-2,13,15+i*30+2,15+j*30-2,0);
     if(me){
-        gradient.addColorStop(0,"#0A0A0A");
-        gradient.addColorStop(1,"#636766");
+        gradient.addColorStop(0,"#0A0A0A");//黑棋
+        gradient.addColorStop(1, "#636766");
+        chessBoard[i][j] = 1
+
     }else{
-        gradient.addColorStop(0,"#D1D1D1");
-        gradient.addColorStop(1,"#F9F9F9");
+        gradient.addColorStop(0, "#D1D1D1");//白棋
+        gradient.addColorStop(1, "#F9F9F9");
+        chessBoard[i][j] = 2
+
     }
+    console.log(chessBoard[i][j])
     ctx.fillStyle=gradient;
     ctx.fill();
 }
@@ -51,13 +56,9 @@ chess.onclick=function (e) {
     var i=Math.floor(x/30);
     var j=Math.floor(y/30);
     if(chessBoard[i][j]==0){
-        oneStep(i,j,me);
-        if(me){
-            chessBoard[i][j]=1;
-        }else{
-            chessBoard[i][j]=2;
-        }
+        oneStep(i, j, me);
+        me = !me;
     }
-    me=!me;
+  
 }
 
