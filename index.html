@@ -20,7 +20,7 @@
         var cvs = document.getElementById("chess"),
             ctx = cvs.getContext("2d"),
             isFirstTime = true;//控制是否为第一次点击
-        chess.init(ctx);//初始化棋盘
+        chess.init(cvs);//初始化棋盘
             
         //绑定棋盘点击事件
         cvs.onclick = function (e) {

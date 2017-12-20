@@ -1,6 +1,6 @@
 chess = {
-    //当前棋盘绘图环境
-    ctx: null,
+    //当前棋盘
+    canvas: null,
 
     //控制黑白,默认为黑棋先行
     isBlack: true,
@@ -10,24 +10,44 @@ chess = {
 
     //绘制棋盘
     _drawChessBoard: function () {
-        var ctx = this.ctx;
-        var logo = new Image();
-        logo.src = "background.png";
-        logo.onload = function () {
-            ctx.drawImage(logo, 0, 0, 450, 450);//先绘制棋盘背景
-            for (var i = 0; i < 15; i++) {//绘制棋盘方格，15*15
-                ctx.moveTo(15 + i * 30, 15);
-                ctx.lineTo(15 + i * 30, 435);
-                ctx.stroke();
-                ctx.moveTo(15, 15 + i * 30);
-                ctx.lineTo(435, 15 + i * 30);
-                ctx.stroke();
-            }
+        var canvas = document.createElement('canvas'),
+            ctx = canvas.getContext('2d');
+        canvas.width = this.canvas.getAttribute('width');
+        canvas.height = this.canvas.getAttribute('height');
+        // var background = new Image();
+        // background.setAttribute('crossOrigin', 'anonymous');
+        // background.src = "background.png";
+        // var me = this;
+        // background.onload = function () {
+        //     ctx.drawImage(background, 0, 0, 450, 450);//先绘制棋盘背景
+        //     for (var i = 0; i < 15; i++) {//绘制棋盘方格，15*15
+        //         ctx.moveTo(15 + i * 30, 15);
+        //         ctx.lineTo(15 + i * 30, 435);
+        //         ctx.stroke();
+        //         ctx.moveTo(15, 15 + i * 30);
+        //         ctx.lineTo(435, 15 + i * 30);
+        //         ctx.stroke();
+        //     }
+        //       me.canvas.style.backgroundImage = 'url('+canvas.toDataURL()+')'
+            
+        // }
+        ctx.fillStyle = "#FF5809";
+        ctx.fillRect(0,0,canvas.width,canvas.height)
+       for (var i = 0; i < 15; i++) {//绘制棋盘方格，15*15
+            ctx.moveTo(15 + i * 30, 15);
+            ctx.lineTo(15 + i * 30, 435);
+            ctx.stroke();
+            ctx.moveTo(15, 15 + i * 30);
+            ctx.lineTo(435, 15 + i * 30);
+            ctx.stroke();
         }
+        this.canvas.style.backgroundImage = 'url('+canvas.toDataURL()+')'
+
+
     },
    //初始化棋盘
-    init: function (ctx) {
-        this.ctx = ctx;
+    init: function (canvas) {
+        this.canvas = canvas;
         this._drawChessBoard();
         for (var i = 0; i < 15; i++) {
             this.chessBoard[i] = [];
@@ -45,7 +65,7 @@ chess = {
         if(this.chessBoard[i][j] !== 0){
             return;
         }
-        var ctx = this.ctx;
+        var ctx = this.canvas.getContext('2d');
         ctx.beginPath();
         ctx.arc(15 + i * 30, 15 + j * 30, 10, 0, Math.PI * 2);
         ctx.closePath();
