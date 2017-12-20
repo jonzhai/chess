@@ -1,13 +1,44 @@
 ﻿<!doctype html>
 <html lang="zh-cn">
-	<head>
-		<meta charset="utf-8">
-		<title>chess</title>
-
-		<link rel="stylesheet" href="chess.css" type="text/css">
-	</head>
-	<body>
-		<canvas id="chess" width="450" height="450"></canvas>
-		<script type="text/javascript" src="chess.js"></script>
-	</body>
+<head>
+	<isBlackta charset="utf-8">
+	<title>chess</title>
+    <style>
+        #chess{
+	        display: block;
+	        margin:50px auto;
+	        box-shadow: -2px -2px 2px #EFEFEF,5px 5px 5px #B9B9B9;
+            cursor:pointer;
+        }
+    </style>
+    <script type="text/javascript" src="chess.js"></script>
+</head>
+<body>
+	<canvas id="chess" width="450" height="450"></canvas>
+	
+    <script>
+        var cvs = document.getElementById("chess"),
+            ctx = cvs.getContext("2d"),
+            isFirstTime = true;//控制是否为第一次点击
+        chess.init(ctx);//初始化棋盘
+            
+        //绑定棋盘点击事件
+        cvs.onclick = function (e) {
+            var x = e.offsetX;
+            var y = e.offsetY;
+            var i = Math.floor(x / 30);
+            var j = Math.floor(y / 30);
+            if (isFirstTime) {
+                if (confirm("黑棋先行？")) {
+                    chess.drawPiece(i, j, true)
+                } else {
+                    chess.drawPiece(i, j, false)
+                }
+                isFirstTime = false;
+            } else {
+                chess.drawPiece(i, j)
+            }
+        }
+    </script>
+</body>
 </html>
