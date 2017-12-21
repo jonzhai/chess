@@ -10,12 +10,16 @@
 	        box-shadow: -2px -2px 2px #EFEFEF,5px 5px 5px #B9B9B9;
             cursor:pointer;
         }
+        button {
+            width:50px;
+            height:30px;
+        }
     </style>
     <script type="text/javascript" src="chess.js"></script>
 </head>
 <body>
 	<canvas id="chess" width="450" height="450"></canvas>
-	
+	<button onclick="chess.clearPiece()">click</button>
     <script>
         var cvs = document.getElementById("chess"),
             ctx = cvs.getContext("2d"),
