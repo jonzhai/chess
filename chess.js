@@ -8,6 +8,9 @@ chess = {
     //存放棋子点位的二维数组
     chessBoard: [],
 
+    //存放已落棋子的数组
+    chessPieces:[],
+
     //绘制棋盘
     _drawChessBoard: function () {
         var canvas = document.createElement('canvas'),
@@ -84,6 +87,17 @@ chess = {
         ctx.fillStyle = gradient;
         ctx.fill();
         this.isBlack = !this.isBlack;
+        this.chessPieces.push([i,j])
+    },
+    clearPiece: function () {
+        var ctx = this.canvas.getContext('2d');
+        if (this.chessPieces.length != 0) {
+            var lastPiece = this.chessPieces.pop(),
+                i = lastPiece[0],
+                j = lastPiece[1];
+            ctx.clearRect(5 + i * 30, 5 + j * 30, 20, 20)//清除像素
+            this.chessBoard[i][j] = 0;//原棋子落位置于空
+        }
     }
 
 }
