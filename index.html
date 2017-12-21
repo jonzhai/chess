@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html lang="zh-cn">
 <head>
-	<isBlackta charset="utf-8">
+	<meta charset="utf-8">
 	<title>chess</title>
     <style>
         #chess{
@@ -11,26 +11,55 @@
             cursor:pointer;
         }
         button {
-            width:50px;
-            height:30px;
+            width:100px;
+            height:50px;
+        }
+        .container{
+            width: 100%;
+        }
+        .container:after{
+            content: "";
+            display: block;
+            visibility: hidden;
+            clear: both;
+         }
+        .chessboard{
+            float: left;
+            width: 70%;
+        }
+        .controlButton{
+            float: left;
+            width: 30%;
+        }
+        .controlButton button{
+            display: block;
+        }
+        .controlButton button:first-child{
+            margin-top: 100px;
+        }
+       .controlButton button:last-child{
+            margin-top: 100px;
         }
     </style>
     <script type="text/javascript" src="chess.js"></script>
 </head>
 <body>
-	<canvas id="chess" width="450" height="450" onclick="chess.playChess(event)"></canvas>
-    <button onclick="chess.undo()">悔棋</button>
-	<button onclick="chess.restart()">重新开始</button>
+    <div class="container">
+        <div class="chessboard">
+            <canvas id="chess" width="450" height="450" onclick="chess.playChess(event)"></canvas>
+        </div>
+        <div class="controlButton">
+            <button onclick="chess.undo()">悔棋</button>
+            <button onclick="chess.restart()">重新开始</button>
+        </div>
+    </div>
+  
+ 
     <script>
         var cvs = document.getElementById("chess"),
             ctx = cvs.getContext("2d"),
             isFirstTime = true;//控制是否为第一次点击
         chess.init(cvs);//初始化棋盘
-            
-        ////绑定棋盘点击事件
-        //cvs.onclick = function (e) {
-        //    chess.playChess(e)
-        //}
     </script>
 </body>
 </html>

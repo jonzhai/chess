@@ -28,6 +28,7 @@ chess = {
         this._drawChessBoard();
         this._reset();
 
+
     },
     //下棋动作
     playChess: function (e) {//传入点击event对象
@@ -44,14 +45,14 @@ chess = {
             this.isFirstTime = false;
         }
         this._drawPiece(i, j)
-        this.isBlack = !this.isBlack;
+      
         this.chessPieces.push([i, j])
 
     },
     //悔棋
     undo:function(){
         var ctx = this.canvas.getContext('2d');
-        if (this.chessPieces.length != 0) {
+        if (this.chessPieces.length > 1) {
             var lastPiece = this.chessPieces.pop(),
                 i = lastPiece[0],
                 j = lastPiece[1];
@@ -111,7 +112,7 @@ chess = {
     },
     //绘制棋子
     _drawPiece: function (i, j) {
-        if(this.chessBoard[i][j] !== 0){
+        if(this.chessBoard[i][j] != 0){
             return;
         }
         var ctx = this.canvas.getContext('2d');
@@ -132,7 +133,7 @@ chess = {
         }
         ctx.fillStyle = gradient;
         ctx.fill();
-
+        this.isBlack = !this.isBlack;
     },
 
 }
