@@ -13,6 +13,7 @@ chess = {
     //存放已落棋子的数组
     chessPieces:[],
 
+    //重置棋盘数组
     _reset:function(){
         for (var i = 0; i < 15; i++) {
             this.chessBoard[i] = [];
@@ -27,8 +28,6 @@ chess = {
         this.canvas = canvas;
         this._drawChessBoard();
         this._reset();
-
-
     },
     //下棋动作
     playChess: function (e) {//传入点击event对象
