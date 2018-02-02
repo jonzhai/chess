@@ -25,9 +25,11 @@ chess = {
     },
    //初始化棋盘
     init: function (canvas) {
-        this.canvas = canvas;
-        this._drawChessBoard();
-        this._reset();
+    	if(canvas.getContext('2d')){
+  			this.canvas = canvas;
+	        this._drawChessBoard();
+	        this._reset();
+    	}
     },
     //下棋动作
     playChess: function (e) {//传入点击event对象
