@@ -1,0 +1,37 @@
+@charset "utf-8";
+ #chess{
+    display: block;
+    margin:50px auto;
+    box-shadow: -2px -2px 2px #EFEFEF,5px 5px 5px #B9B9B9;
+    cursor:pointer;
+}
+button {
+    width:100px;
+    height:50px;
+}
+.container{
+    width: 100%;
+}
+.container:after{
+    content: "";
+    display: block;
+    visibility: hidden;
+    clear: both;
+ }
+.chessboard{
+    float: left;
+    width: 70%;
+}
+.controlButton{
+    float: left;
+    width: 30%;
+}
+.controlButton button{
+    display: block;
+}
+.controlButton button:first-child{
+    margin-top: 100px;
+}
+.controlButton button:last-child{
+    margin-top: 100px;
+}
