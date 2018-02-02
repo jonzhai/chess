@@ -15,91 +15,85 @@ chess = {
 
     //重置棋盘数组
     _reset:function(){
+    	var me = this;
         for (var i = 0; i < 15; i++) {
-            this.chessBoard[i] = [];
+            me.chessBoard[i] = [];
             for (var j = 0; j < 15; j++) {
-                this.chessBoard[i][j] = 0;//默认棋子位置为0，白子为1，黑子为2
+                me.chessBoard[i][j] = 0;//默认棋子位置为0，白子为1，黑子为2
             }
         }
     
     },
    //初始化棋盘
     init: function (canvas) {
+    	var me = this;
     	if(canvas.getContext('2d')){
-  			this.canvas = canvas;
-	        this._drawChessBoard();
-	        this._reset();
+  			me.canvas = canvas;
+	        me._drawChessBoard();
+	        me._reset();
     	}
     },
     //下棋动作
     playChess: function (e) {//传入点击event对象
-        var x = e.offsetX;
-        var y = e.offsetY;
-        var i = Math.floor(x / 30);
-        var j = Math.floor(y / 30);
-        if (this.isFirstTime) {
+        var me = this,
+       	 	x = e.offsetX,
+        	y = e.offsetY,
+       		i = Math.floor(x / 30),
+       		j = Math.floor(y / 30);
+        if (me.isFirstTime) {
             if (confirm("黑棋先行？")) {
-                this.isBlack = true;
+                me.isBlack = true;
             } else {
-                this.isBlack = false;
+                me.isBlack = false;
             }
-            this.isFirstTime = false;
+            me.isFirstTime = false;
         }
-        this._drawPiece(i, j)
+        me._drawPiece(i, j);
       
-        this.chessPieces.push([i, j])
+        me.chessPieces.push([i, j]);
 
     },
     //悔棋
     undo:function(){
-        var ctx = this.canvas.getContext('2d');
-        if (this.chessPieces.length > 1) {
-            var lastPiece = this.chessPieces.pop(),
+		var me = this,
+        	ctx = me.canvas.getContext('2d');
+        if (me.chessPieces.length > 1) {
+            var lastPiece = me.chessPieces.pop(),
                 i = lastPiece[0],
                 j = lastPiece[1];
-            ctx.clearRect(5 + i * 30, 5 + j * 30, 20, 20)//清除像素
-            this.chessBoard[i][j] = 0;//原棋子落位置于空
-            this.isBlack = !this.isBlack;
+            //清除像素  
+            ctx.clearRect(5 + i * 30, 5 + j * 30, 20, 20);
+
+            //原棋子落位置于空
+            me.chessBoard[i][j] = 0;
+            me.isBlack = !me.isBlack;
         }
     },
     //重新开始游戏
     restart:function(){
-        if (this.chessPieces.length == 0) {
+    	var me = this;
+        if (me.chessPieces.length == 0) {
             return;
         }
-        var ctx = this.canvas.getContext('2d');
-        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this._reset();
-        this.chessPieces.length = 0;
-        this.isFirstTime = true;
-        this.isBlack = true;
+        var ctx = me.canvas.getContext('2d');
+        ctx.clearRect(0, 0, me.canvas.width, me.canvas.height);
+        me._reset();
+        me.chessPieces.length = 0;
+        me.isFirstTime = true;
+        me.isBlack = true;
 
     },
     //绘制棋盘
     _drawChessBoard: function () {
-        var canvas = document.createElement('canvas'),
+    	var me = this,
+            canvas = document.createElement('canvas'),
             ctx = canvas.getContext('2d');
-        canvas.width = this.canvas.getAttribute('width');
-        canvas.height = this.canvas.getAttribute('height');
-        // var background = new Image();
-        // background.setAttribute('crossOrigin', 'anonymous');
-        // background.src = "background.png";
-        // var me = this;
-        // background.onload = function () {
-        //     ctx.drawImage(background, 0, 0, 450, 450);//先绘制棋盘背景
-        //     for (var i = 0; i < 15; i++) {//绘制棋盘方格，15*15
-        //         ctx.moveTo(15 + i * 30, 15);
-        //         ctx.lineTo(15 + i * 30, 435);
-        //         ctx.stroke();
-        //         ctx.moveTo(15, 15 + i * 30);
-        //         ctx.lineTo(435, 15 + i * 30);
-        //         ctx.stroke();
-        //     }
-        //       me.canvas.style.backgroundImage = 'url('+canvas.toDataURL()+')'
-        // }
+        canvas.width = me.canvas.getAttribute('width');
+        canvas.height = me.canvas.getAttribute('height');
         ctx.fillStyle = "#FF5809";
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-        for (var i = 0; i < 15; i++) {//绘制棋盘方格，15*15
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //绘制棋盘方格，15*15
+        for (var i = 0; i < 15; i++) {
             ctx.moveTo(15 + i * 30, 15);
             ctx.lineTo(15 + i * 30, 435);
             ctx.stroke();
@@ -107,35 +101,32 @@ chess = {
             ctx.lineTo(435, 15 + i * 30);
             ctx.stroke();
         }
-        this.canvas.style.backgroundImage = 'url(' + canvas.toDataURL() + ')'
-
-
+        me.canvas.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
     },
     //绘制棋子
     _drawPiece: function (i, j) {
-        if(this.chessBoard[i][j] != 0){
+    	var me = this;
+        if(me.chessBoard[i][j] != 0){
             return;
         }
-        var ctx = this.canvas.getContext('2d');
+        var ctx = me.canvas.getContext('2d');
         ctx.beginPath();
         ctx.arc(15 + i * 30, 15 + j * 30, 10, 0, Math.PI * 2);
         ctx.closePath();
         var gradient = ctx.createRadialGradient(15 + i * 30 + 2, 15 + j * 30 - 2, 13, 15 + i * 30 + 2, 15 + j * 30 - 2, 0);
-        if (this.isBlack) {
+        if (me.isBlack) {
             gradient.addColorStop(0, "#0A0A0A");//黑棋
             gradient.addColorStop(1, "#636766");
-            this.chessBoard[i][j] = 1
-
+            me.chessBoard[i][j] = 1;
         } else {
             gradient.addColorStop(0, "#D1D1D1");//白棋
             gradient.addColorStop(1, "#F9F9F9");
-            this.chessBoard[i][j] = 2
-
+            me.chessBoard[i][j] = 2;
         }
         ctx.fillStyle = gradient;
         ctx.fill();
-        this.isBlack = !this.isBlack;
-    },
+        me.isBlack = !me.isBlack;
+    }
 
 }
 
