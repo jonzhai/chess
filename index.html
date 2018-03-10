@@ -1,21 +1,33 @@
 ﻿<!doctype html>
 <html lang="zh-cn">
 <head>
-	<meta charset="utf-8">
-	<title>chess</title>
+    <title>chess</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
 	<link rel="stylesheet" href="index.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="chess.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="chessboard">
-            <canvas id="chess" width="450" height="450" onclick="chess.playChess(event)"></canvas>
+        <!--<div class="row">-->
+            <!--<h1 class="title">五子棋</h1>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="chessboard">
+                    <canvas id="chess" width="450" height="450" onclick="chess.playChess(event)"></canvas>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="logo"><img src="./logo.png" alt="logo"></div>
+                <div class="controlButton">
+                    <button class="btn btn-default" onclick="chess.undo()">悔棋</button>
+                    <button class="btn btn-default" onclick="chess.restart()">重新开始</button>
+                </div>
+            </div>
         </div>
-        <div class="controlButton">
-            <button onclick="chess.undo()">悔棋</button>
-            <button onclick="chess.restart()">重新开始</button>
-        </div>
-    </div>
+   </div>
     <script>
         var cvs = document.getElementById("chess");
         chess.init(cvs);//初始化棋盘

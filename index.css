@@ -1,37 +1,58 @@
 @charset "utf-8";
- #chess{
-    display: block;
-    margin:50px auto;
-    box-shadow: -2px -2px 2px #EFEFEF,5px 5px 5px #B9B9B9;
-    cursor:pointer;
-}
-button {
-    width:100px;
-    height:50px;
+*{
+    margin: 0;
+    padding: 0;
 }
 .container{
+    background-color: #d8a959;
+    margin-top: 50px;
+    max-width: 750px;
+    position: relative;
+}
+/*.title{*/
+    /*text-align: center;*/
+/*}*/
+.chessboard{
+   width: 100%;
+    height: 500px;
+    position: relative;
+}
+#chess{
+   position: absolute;
+    left:50%;
+    top:50%;
+    margin-left:-225px ;
+    margin-top:-225px ;
+    cursor: pointer;
+    border: 5px solid #9d5f0c;
+    border-radius: 10px;
+
+}
+.logo{
+    margin-top: 100px;
     width: 100%;
 }
-.container:after{
-    content: "";
+.logo>img{
     display: block;
-    visibility: hidden;
-    clear: both;
- }
-.chessboard{
-    float: left;
-    width: 70%;
+    margin: 0 auto;
+
 }
 .controlButton{
-    float: left;
-    width: 30%;
+    width: 100%;
 }
-.controlButton button{
+.controlButton >button{
     display: block;
+    width: 6em;
+    margin: 0 auto;
+    /*background-color: #FF9800;*/
+    /*border-color:#795548 ;*/
 }
-.controlButton button:first-child{
-    margin-top: 100px;
+/*.controlButton >button:hover{*/
+    /*background-color: #FF5722;*/
+/*}*/
+.controlButton >button:first-child{
+    margin-top: 50px;
 }
-.controlButton button:last-child{
-    margin-top: 100px;
+.controlButton >button:last-child{
+    margin-top: 30px;
 }

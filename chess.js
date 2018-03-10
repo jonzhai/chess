@@ -90,7 +90,7 @@ chess = {
             ctx = canvas.getContext('2d');
         canvas.width = me.canvas.getAttribute('width');
         canvas.height = me.canvas.getAttribute('height');
-        ctx.fillStyle = "#FF5809";
+        ctx.fillStyle = "#f6e7be";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         //绘制棋盘方格，15*15
         for (var i = 0; i < 15; i++) {
@@ -120,7 +120,7 @@ chess = {
             me.chessBoard[i][j] = 1;
         } else {
             gradient.addColorStop(0, "#D1D1D1");//白棋
-            gradient.addColorStop(1, "#F9F9F9");
+            gradient.addColorStop(0.5, "#F9F9F9");
             me.chessBoard[i][j] = 2;
         }
         ctx.fillStyle = gradient;
