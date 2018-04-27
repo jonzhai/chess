@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
 	<link rel="stylesheet" href="index.css">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="chess.js"></script>
+    <script type="text/javascript" src="chess.v2.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,21 +16,26 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="chessboard">
-                    <canvas id="chess" width="450" height="450" onclick="chess.playChess(event)"></canvas>
+                    <canvas id="chess" width="450" height="450" onclick="playChess.playChess(event)"></canvas>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="logo"><img src="./logo.png" alt="logo"></div>
                 <div class="controlButton">
-                    <button class="btn btn-default" onclick="chess.undo()">悔棋</button>
-                    <button class="btn btn-default" onclick="chess.restart()">重新开始</button>
+                    <button class="btn btn-default" onclick="playChess.undo()">悔棋</button>
+                    <button class="btn btn-default" onclick="playChess.restart()">重新开始</button>
                 </div>
             </div>
         </div>
    </div>
     <script>
-        var cvs = document.getElementById("chess");
-        chess.init(cvs);//初始化棋盘
+        // var cvs = document.getElementById("chess");
+        // chess.init(cvs);//初始化棋盘
+        var playChess = null;
+    window.onload = function(){
+        playChess = new Chess('#chess');
+    }
+       
     </script>
 </body>
 </html>
