@@ -150,7 +150,7 @@
                 function checkLTR(){
                     var a = m+1 ,b = m-1 ,sum = 1;
                     function _checkR(a){
-                        if(me.chessBoard[n][a] !== tag || a >= m+5 || a>=15){
+                        if( a >= m+5 || a>=15 ||me.chessBoard[n][a] !== tag){
                             return
                         }
                         sum++;
@@ -159,7 +159,7 @@
                     }
                     _checkR(a);
                     function _checkL(b){
-                        if(me.chessBoard[n][b] !== tag || b <= m-5 || b < 0){
+                        if( b <= m-5 || b < 0 ||me.chessBoard[n][b] !== tag){
                             return
                         }
                         sum++;
@@ -167,6 +167,7 @@
                         _checkL(b);
                     }
                     _checkL(b);
+                    console.log(sum)
                     if(sum>=5){
                         resolve(tag);
                     }else{
@@ -177,7 +178,7 @@
                 function checkUTD(){
                     var a = n+1 ,b = n-1 ,sum = 1;
                     function _checkR(a){
-                        if(me.chessBoard[a][m] !== tag || a >= n+5 || a>=15){
+                        if( a >= n+5 || a>14 ||me.chessBoard[a][m] !== tag ){
                             return
                         }
                         sum++;
@@ -186,7 +187,7 @@
                     }
                     _checkR(a);
                     function _checkL(b){
-                        if(me.chessBoard[b][m] !== tag || b <= n-5 || b < 0){
+                        if( b <= n-5 || b < 0||me.chessBoard[b][m] !== tag){
                             return
                         }
                         sum++;
@@ -194,6 +195,8 @@
                         _checkL(b);
                     }
                     _checkL(b);
+                    console.log(sum)
+                    
                     if(sum>=5){
                         resolve(tag);
                     }else{
@@ -206,7 +209,7 @@
                         c = m+1, d = m-1, 
                         sum = 1;
                     function _checkES(a,c){
-                        if(me.chessBoard[a][c] !== tag || a >= n+5 || a>=15|| c >= m+5 || c>=15){
+                        if( a >= n+5 || a>14|| c >= m+5 || c>14 ||me.chessBoard[a][c] !== tag ){
                             return
                         }
                         sum++;
@@ -216,7 +219,7 @@
                     }
                     _checkES(a,c);
                     function _checkWN(b,d){
-                        if(me.chessBoard[b][d] !== tag || b <= n-5 || b < 0|| d <= m-5 || d < 0){
+                        if(b <= n-5 || b < 0|| d <= m-5 || d < 0 ||me.chessBoard[b][d] !== tag ){
                             return
                         }
                         sum++;
@@ -225,6 +228,8 @@
                         _checkWN(b,d);
                     }
                     _checkWN(b,d);
+                    console.log(sum)
+                    
                     if(sum>=5){
                         resolve(tag);
                     }else{
@@ -236,26 +241,28 @@
                     var a = n+1, b = n-1 ,
                         c = m+1, d = m-1, 
                         sum = 1;
-                    function _checkES(a,c){
-                        if(me.chessBoard[a][d] !== tag || a >= n+5 || a>=15|| b <= n-5 || b < 0){
+                    function _checkEN(a,c){
+                        if(a >= n+5 || a>=15|| b <= n-5 || b < 0 ||me.chessBoard[a][d] !== tag){
                             return
                         }
                         sum++;
                         a++;
                         d--;
-                        _checkES(a,d);
+                        _checkEN(a,d);
                     }
-                    _checkES(a,d);
-                    function _checkWN(b,c){
-                        if(me.chessBoard[b][c] !== tag || b <= n-5 || b < 0|| c >=15 || c >= m+5){
+                    _checkEN(a,d);
+                    function _checkWS(b,c){
+                        if( b <= n-5 || b < 0|| c >=15 || c >= m+5||me.chessBoard[b][c] !== tag){
                             return
                         }
                         sum++;
                         b--;
                         c++;
-                        _checkWN(b,c);
+                        _checkWS(b,c);
                     }
-                    _checkWN(b,c);
+                    _checkWS(b,c);
+                    console.log(sum)
+                    
                     if(sum>=5){
                         resolve(tag);
                     }else{
@@ -269,12 +276,7 @@
                 if(errorArr.length == 4){
                     reject()
                 }
-               
-
             })   
-           
-          
-
         }
 
 
