@@ -71,14 +71,19 @@
             this.chessPieces.push([i, j]);
             // console.log(this.chessBoard)
             var me = this;
-            this._checkEnd(i,j).then(function(tag){
-                var str = (tag == 1) ? "黑棋获胜！":"白棋获胜！";
-                if(confirm(str)){
-                    me.restart();
-                }
-            }).catch(function(){
+
+            //此处延迟判断输赢，确保最后一颗棋子绘制完成后触发
+            setTimeout(function(){
+                me._checkEnd(i,j).then(function(tag){
+                    var str = (tag == 1) ? "黑棋获胜！重新开始游戏？":"白棋获胜！重新开始游戏？";
+                    if(confirm(str)){
+                        me.restart();
+                    }
+                }).catch(function(e){
+                    console.log(e)
+                })
                 
-            })
+            },20)
         },
           //悔棋
         undo:function(){
@@ -133,16 +138,16 @@
         },
         //检查是否结束
         _checkEnd: function(m,n){
-            //  console.log(m,n,this.chessBoard);
-             
-
             var me = this,
-                tag = me.chessBoard[n][m],//当前位置标记
+
+            //当前位置标记,m,n与棋盘数组有转换关系，这里调整
+                tag = me.chessBoard[n][m],
                 errorArr = [];
-            // console.log(tag)
+
+            //从四个方向分别递归统计，如果有一个方向达到5颗棋子，则判定为胜，否则未胜，游戏可继续
            return new Promise(function(resolve,reject){
                //从中间向左右统计
-                function checkLR(){
+                function checkLTR(){
                     var a = m+1 ,b = m-1 ,sum = 1;
                     function _checkR(a){
                         if(me.chessBoard[n][a] !== tag || a >= m+5 || a>=15){
@@ -154,7 +159,7 @@
                     }
                     _checkR(a);
                     function _checkL(b){
-                        if(me.chessBoard[n][b] !== tag || b <= m-5 || b <= 0){
+                        if(me.chessBoard[n][b] !== tag || b <= m-5 || b < 0){
                             return
                         }
                         sum++;
@@ -162,22 +167,17 @@
                         _checkL(b);
                     }
                     _checkL(b);
-                    // console.log(sum)
                     if(sum>=5){
-                        // console.log('true');
                         resolve(tag);
-                        // return true;
                     }else{
-                        // console.log('false')
                         errorArr.push(false)
-                        // return false;
                     }
                 }
                 //从中间向上下统计
-                function checkUD(){
+                function checkUTD(){
                     var a = n+1 ,b = n-1 ,sum = 1;
                     function _checkR(a){
-                        if(me.chessBoard[a][m] !== tag || a >= n+5 || a>=14){
+                        if(me.chessBoard[a][m] !== tag || a >= n+5 || a>=15){
                             return
                         }
                         sum++;
@@ -186,7 +186,7 @@
                     }
                     _checkR(a);
                     function _checkL(b){
-                        if(me.chessBoard[b][m] !== tag || b <= n-5 || b <= 0){
+                        if(me.chessBoard[b][m] !== tag || b <= n-5 || b < 0){
                             return
                         }
                         sum++;
@@ -194,24 +194,19 @@
                         _checkL(b);
                     }
                     _checkL(b);
-                    // console.log(sum)
                     if(sum>=5){
-                        // console.log('true');
                         resolve(tag);
-                        // return true;
                     }else{
-                        // console.log('false')
                         errorArr.push(false)
-                        // return false;
                     }
                 }
-                 //从西北向东南统计
+                 //从中间向西北，东南统计
                 function checkWNTES(){
                     var a = n+1, b = n-1 ,
                         c = m+1, d = m-1, 
                         sum = 1;
                     function _checkES(a,c){
-                        if(me.chessBoard[a][c] !== tag || a >= n+5 || a>=14|| c >= m+5 || c>=14){
+                        if(me.chessBoard[a][c] !== tag || a >= n+5 || a>=15|| c >= m+5 || c>=15){
                             return
                         }
                         sum++;
@@ -221,7 +216,7 @@
                     }
                     _checkES(a,c);
                     function _checkWN(b,d){
-                        if(me.chessBoard[b][d] !== tag || b <= n-5 || b <= 0|| d <= m-5 || d <= 0){
+                        if(me.chessBoard[b][d] !== tag || b <= n-5 || b < 0|| d <= m-5 || d < 0){
                             return
                         }
                         sum++;
@@ -230,24 +225,19 @@
                         _checkWN(b,d);
                     }
                     _checkWN(b,d);
-                    // console.log(sum)
                     if(sum>=5){
-                        // console.log('true');
                         resolve(tag);
-                        // return true;
                     }else{
-                        // console.log('false')
                         errorArr.push(false)
-                        // return false;
                     }
                 }
-                //从东北向西南统计
+                //从中间向东北，西南统计
                 function checkENTWS(){
                     var a = n+1, b = n-1 ,
                         c = m+1, d = m-1, 
                         sum = 1;
                     function _checkES(a,c){
-                        if(me.chessBoard[a][d] !== tag || a >= n+5 || a>=14|| b <= n-5 || b <= 0){
+                        if(me.chessBoard[a][d] !== tag || a >= n+5 || a>=15|| b <= n-5 || b < 0){
                             return
                         }
                         sum++;
@@ -257,7 +247,7 @@
                     }
                     _checkES(a,d);
                     function _checkWN(b,c){
-                        if(me.chessBoard[b][c] !== tag || b <= n-5 || b <= 0|| c >=15 || c >= m+5){
+                        if(me.chessBoard[b][c] !== tag || b <= n-5 || b < 0|| c >=15 || c >= m+5){
                             return
                         }
                         sum++;
@@ -266,19 +256,14 @@
                         _checkWN(b,c);
                     }
                     _checkWN(b,c);
-                    // console.log(sum)
                     if(sum>=5){
-                        // console.log('true');
                         resolve(tag);
-                        // return true;
                     }else{
-                        // console.log('false')
                         errorArr.push(false)
-                        // return false;
                     }
                 }
-                checkLR();
-                checkUD();
+                checkLTR();
+                checkUTD();
                 checkWNTES();
                 checkENTWS();
                 if(errorArr.length == 4){
