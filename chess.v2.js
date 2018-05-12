@@ -20,8 +20,13 @@
         this.chessPieces = [];
         //绘制棋盘
         this._drawChessBoard();
-        //重置棋盘数据
+        //初始化棋盘数组
         this._reset();
+        //给棋盘添加点击下棋事件
+        var me = this;
+        this.canvas.addEventListener('click',function(e){
+            me.playChess(e);
+        })
     }
     Chess.prototype = {
         _reset:function(){
@@ -74,10 +79,12 @@
 
             //此处延迟判断输赢，确保最后一颗棋子绘制完成后触发
             setTimeout(function(){
-                me._checkEnd(i,j).then(function(tag){
+                me.checkEnd(i,j).then(function(tag){
                     var str = (tag == 1) ? "黑棋获胜！重新开始游戏？":"白棋获胜！重新开始游戏？";
                     if(confirm(str)){
                         me.restart();
+                    }else{
+                        me.undo();
                     }
                 }).catch(function(e){
                     console.log(e)
@@ -137,7 +144,7 @@
             this.isBlack = !this.isBlack;
         },
         //检查是否结束
-        _checkEnd: function(m,n){
+        checkEnd: function(m,n){
             var me = this,
 
             //当前位置标记,m,n与棋盘数组有转换关系，这里调整
@@ -277,7 +284,8 @@
                     reject()
                 }
             })   
-        }
+        },
+       
 
 
     }
