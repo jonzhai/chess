@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+    <title>chess</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+	<link rel="stylesheet" href="index.v3.css">
+    <script type="text/javascript" src="chess.v3.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="chessBoard">
+            <div id="chess"></div>
+        </div>
+        <div class="controlButton">
+            <button class="btn" onclick="playChess.undo()">悔棋</button>
+            <button class="btn" onclick="playChess.restart()">重新开始</button>
+        </div>
+   </div>
+    <script>
+       var playChess = new Chess('#chess',{
+           num: 15,
+           size: 30
+       });
+       //传入棋盘行列数和每个格子的大小
+    </script>
+</body>
+</html>

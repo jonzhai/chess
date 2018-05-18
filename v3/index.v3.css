@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+}
+.chessBoard{
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.chessBoard #chess{
+    cursor: pointer;
+}
+.controlButton{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.controlButton .btn{
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    margin: 0 20px;
+    padding: 6px 12px;
+    width: 6em;
+    background-color: #337ab7;
+    color:#fff;
+    border: 1px solid #2e6da4;
+    border-radius:4px; 
+}
+.controlButton .btn:hover{
+    background-color: blue;
+}
